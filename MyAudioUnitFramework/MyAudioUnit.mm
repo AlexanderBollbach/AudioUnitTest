@@ -14,9 +14,11 @@
 
 @property (nonatomic, strong) AUAudioUnitBus *outputBus;
 @property (nonatomic, strong) AUAudioUnitBusArray *outputBusArray;
+@property (nonatomic, readwrite) AUParameterTree *parameterTree;
 
 
 @end
+
 
 
 @implementation MyAudioUnit {
@@ -26,6 +28,8 @@
     float phase;
 }
 
+
+@synthesize parameterTree = _parameterTree;
 
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
                                      options:(AudioComponentInstantiationOptions)options
@@ -44,11 +48,59 @@
     _outputBusBuffer.init(defaultFormat, 2);
     _outputBus = _outputBusBuffer.bus;
 
-    // Create the input and output bus arrays.
     _outputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self busType:AUAudioUnitBusTypeOutput busses: @[_outputBus]];
+    
+    
+    
+    AudioUnitParameterOptions flags = kAudioUnitParameterFlag_IsWritable | kAudioUnitParameterFlag_IsReadable | kAudioUnitParameterFlag_DisplayLogarithmic;
+    AUParameter * frequencyParameter = [AUParameterTree createParameterWithIdentifier:@"Frequency"
+                                                                         name:@"Frequency"
+                                                                      address:0
+                                                                          min:5
+                                                                          max:1000 unit:kAudioUnitParameterUnit_Hertz
+                                                                     unitName:nil
+                                                                        flags: flags
+                                                                 valueStrings:nil
+                                                          dependentParameters:nil];
+    
+    frequencyParameter.value = 500;
+    
+    _parameterTree = [AUParameterTree createTreeWithChildren:@[
+                                                               frequencyParameter
+                                                               ]];
 
+    
+    
+    // implementorValueObserver is called when a parameter changes value.
+    _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
+    
+        NSLog(@"%f", param.value);
+    };
+    
+    // implementorValueProvider is called when the value needs to be refreshed.
+    _parameterTree.implementorValueProvider = ^(AUParameter *param) {
+        return frequencyParameter.value; // ? recursiony??
+    };
+    
+    // A function to provide string representations of parameter values.
+    _parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
+        AUValue value = valuePtr == nil ? param.value : *valuePtr;
+        
+        switch (param.address) {
+            case 0:
+                return [NSString stringWithFormat:@"%.3f", value];
+            default:
+                return @"?";
+        }
+    
+    };
+    
+    
+    
+    
+    
     self.maximumFramesToRender = 512;
-//
+
     return self;
 }
 
@@ -99,7 +151,8 @@
         
         for (AUAudioFrameCount i = 0; i < frameCount; ++i)
         {
-            outL[i] = outR[i] = sin(i * 0.2);
+            outL[i] = outR[i] = sin(phase);
+            phase += 0.04;
         }
     
         return noErr;

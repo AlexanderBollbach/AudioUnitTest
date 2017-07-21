@@ -16,7 +16,5 @@
 @implementation MyAudioUnitAUViewController
 
 
--(void)viewDidLoad {
-    [super viewDidLoad];
-}
+
 @end

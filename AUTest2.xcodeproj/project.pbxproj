@@ -23,7 +23,6 @@
 		29A05B5E1F21836D00381EF6 /* TestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A05B5D1F21836D00381EF6 /* TestVC.m */; };
 		29A05B621F218EAC00381EF6 /* AudioEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A05B611F218EAC00381EF6 /* AudioEngine.m */; };
 		29A05B641F218FB300381EF6 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29A05B631F218FB300381EF6 /* MainInterface.storyboard */; };
-		29A05B651F21909900381EF6 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29A05B631F218FB300381EF6 /* MainInterface.storyboard */; };
 		29CC184F1F2198A700C06C7B /* MyAudioUnitFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A05B541F21676800381EF6 /* MyAudioUnitFramework.framework */; };
 		29CC18EC1F21A6CC00C06C7B /* BufferedOutputBus.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 29CC18EB1F21A6C400C06C7B /* BufferedOutputBus.hpp */; };
 /* End PBXBuildFile section */
@@ -319,7 +318,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				29A05B651F21909900381EF6 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
