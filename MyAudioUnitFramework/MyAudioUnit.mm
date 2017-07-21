@@ -7,8 +7,8 @@
 //
 
 #import "MyAudioUnit.h"
+#import "BufferedAudioBus.hpp"
 
-#import "MyAudioUnitProc.hpp"
 
 @interface MyAudioUnit ()
 
@@ -21,14 +21,41 @@
 
 @implementation MyAudioUnit {
     
+    BufferedOutputBus _outputBusBuffer;
+
+    float phase;
+}
+
+
+- (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
+                                     options:(AudioComponentInstantiationOptions)options
+                                       error:(NSError **)outError
+{
+    self = [super initWithComponentDescription:componentDescription options:options error:outError];
     
+    AVAudioFormat *defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:44100. channels:2];
     
+    if (self == nil)
+    {
+        return nil;
+    }
+   
     
-    
-    
-    
-    
-    
+    _outputBusBuffer.init(defaultFormat, 2);
+    _outputBus = _outputBusBuffer.bus;
+
+    // Create the input and output bus arrays.
+    _outputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self busType:AUAudioUnitBusTypeOutput busses: @[_outputBus]];
+
+    self.maximumFramesToRender = 512;
+//
+    return self;
+}
+
+
+- (AUAudioUnitBusArray *)outputBusses
+{
+    return _outputBusArray;
 }
 
 
@@ -39,7 +66,7 @@
         return NO;
     }
     
-  
+  _outputBusBuffer.allocateRenderResources(self.maximumFramesToRender);
     return YES;
 }
 
@@ -55,12 +82,6 @@
 
 - (AUInternalRenderBlock)internalRenderBlock
 {
-    /*
-     Capture in locals to avoid ObjC member lookups. If "self" is captured in
-     render, we're doing it wrong.
-     */
-    
-    
     return ^AUAudioUnitStatus(
                               AudioUnitRenderActionFlags *actionFlags,
                               const AudioTimeStamp       *timestamp,
@@ -70,6 +91,16 @@
                               const AURenderEvent        *realtimeEventListHead,
                               AURenderPullInputBlock      pullInputBlock)
     {
+    
+        _outputBusBuffer.prepareOutputBufferList(outputData, frameCount, true);
+        
+        float* outL = (float*)outputData->mBuffers[0].mData;
+        float* outR = (float*)outputData->mBuffers[1].mData;
+        
+        for (AUAudioFrameCount i = 0; i < frameCount; ++i)
+        {
+            outL[i] = outR[i] = sin(i * 0.2);
+        }
     
         return noErr;
     };

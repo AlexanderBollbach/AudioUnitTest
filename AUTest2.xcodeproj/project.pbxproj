@@ -10,7 +10,6 @@
 		2977D86B1F2193ED0089CE56 /* MyAudioUnitFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A05B541F21676800381EF6 /* MyAudioUnitFramework.framework */; };
 		2977D86C1F2193ED0089CE56 /* MyAudioUnitFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 29A05B541F21676800381EF6 /* MyAudioUnitFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2977D86D1F2193F10089CE56 /* MyAudioUnitExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2977D86A1F21927C0089CE56 /* MyAudioUnitExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		2977D86E1F2195690089CE56 /* MyAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 29A05B291F2161DE00381EF6 /* MyAudioUnit.mm */; };
 		29A05AA71F21612C00381EF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A05AA61F21612C00381EF6 /* AppDelegate.swift */; };
 		29A05AAC1F21612C00381EF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29A05AAA1F21612C00381EF6 /* Main.storyboard */; };
 		29A05AAE1F21612C00381EF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29A05AAD1F21612C00381EF6 /* Assets.xcassets */; };
@@ -25,9 +24,8 @@
 		29A05B621F218EAC00381EF6 /* AudioEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A05B611F218EAC00381EF6 /* AudioEngine.m */; };
 		29A05B641F218FB300381EF6 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29A05B631F218FB300381EF6 /* MainInterface.storyboard */; };
 		29A05B651F21909900381EF6 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29A05B631F218FB300381EF6 /* MainInterface.storyboard */; };
-		29CC184D1F21981700C06C7B /* MyAudioUnitProc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 29CC184B1F21981700C06C7B /* MyAudioUnitProc.mm */; };
-		29CC184E1F21981700C06C7B /* MyAudioUnitProc.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 29CC184C1F21981700C06C7B /* MyAudioUnitProc.hpp */; };
 		29CC184F1F2198A700C06C7B /* MyAudioUnitFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A05B541F21676800381EF6 /* MyAudioUnitFramework.framework */; };
+		29CC18EC1F21A6CC00C06C7B /* BufferedOutputBus.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 29CC18EB1F21A6C400C06C7B /* BufferedOutputBus.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,8 +93,7 @@
 		29A05B601F218EAC00381EF6 /* AudioEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioEngine.h; sourceTree = "<group>"; };
 		29A05B611F218EAC00381EF6 /* AudioEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioEngine.m; sourceTree = "<group>"; };
 		29A05B631F218FB300381EF6 /* MainInterface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
-		29CC184B1F21981700C06C7B /* MyAudioUnitProc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyAudioUnitProc.mm; sourceTree = "<group>"; };
-		29CC184C1F21981700C06C7B /* MyAudioUnitProc.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MyAudioUnitProc.hpp; sourceTree = "<group>"; };
+		29CC18EB1F21A6C400C06C7B /* BufferedOutputBus.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BufferedOutputBus.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,9 +128,9 @@
 			children = (
 				29A05AA51F21612C00381EF6 /* AUTest2 */,
 				29A05B0B1F2161BA00381EF6 /* MyAudioUnitFramework */,
-				29A05B211F2161BA00381EF6 /* AUTest2.app */,
 				29A05B3F1F2164FB00381EF6 /* MyAudioUnitExtension */,
 				29A05B541F21676800381EF6 /* MyAudioUnitFramework.framework */,
+				29A05B211F2161BA00381EF6 /* AUTest2.app */,
 				2977D86A1F21927C0089CE56 /* MyAudioUnitExtension.appex */,
 			);
 			sourceTree = "<group>";
@@ -157,15 +154,14 @@
 		29A05B0B1F2161BA00381EF6 /* MyAudioUnitFramework */ = {
 			isa = PBXGroup;
 			children = (
-				29CC184C1F21981700C06C7B /* MyAudioUnitProc.hpp */,
-				29CC184B1F21981700C06C7B /* MyAudioUnitProc.mm */,
 				29A05B0C1F2161BA00381EF6 /* MyAudioUnitFramework.h */,
 				29A05B0D1F2161BA00381EF6 /* Info.plist */,
-				29A05B361F21621600381EF6 /* MyAudioUnitAUViewController.h */,
-				29A05B371F21621600381EF6 /* MyAudioUnitAUViewController.m */,
+				29A05B631F218FB300381EF6 /* MainInterface.storyboard */,
 				29A05B281F2161DE00381EF6 /* MyAudioUnit.h */,
 				29A05B291F2161DE00381EF6 /* MyAudioUnit.mm */,
-				29A05B631F218FB300381EF6 /* MainInterface.storyboard */,
+				29A05B361F21621600381EF6 /* MyAudioUnitAUViewController.h */,
+				29A05B371F21621600381EF6 /* MyAudioUnitAUViewController.m */,
+				29CC18EB1F21A6C400C06C7B /* BufferedOutputBus.hpp */,
 			);
 			path = MyAudioUnitFramework;
 			sourceTree = "<group>";
@@ -188,7 +184,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				29A05B1C1F2161BA00381EF6 /* MyAudioUnitFramework.h in Headers */,
-				29CC184E1F21981700C06C7B /* MyAudioUnitProc.hpp in Headers */,
+				29CC18EC1F21A6CC00C06C7B /* BufferedOutputBus.hpp in Headers */,
 				29A05B381F21621600381EF6 /* MyAudioUnitAUViewController.h in Headers */,
 				29A05B2F1F2161DE00381EF6 /* MyAudioUnit.h in Headers */,
 			);
@@ -344,7 +340,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				29CC184D1F21981700C06C7B /* MyAudioUnitProc.mm in Sources */,
 				29A05B391F21621600381EF6 /* MyAudioUnitAUViewController.m in Sources */,
 				29A05B301F2161DE00381EF6 /* MyAudioUnit.mm in Sources */,
 			);
@@ -354,7 +349,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2977D86E1F2195690089CE56 /* MyAudioUnit.mm in Sources */,
 				29A05B531F21653100381EF6 /* MyAudioUnitAUViewController+AUAudioUnitFactory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

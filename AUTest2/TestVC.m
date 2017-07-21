@@ -43,7 +43,7 @@
 //    [self embedPlugInView];
     
     AudioComponentDescription desc;
-    desc.componentType = kAudioUnitType_MusicDevice;
+    desc.componentType = kAudioUnitType_Generator;
     desc.componentSubType = 0x77617665; /*'wave'*/
     desc.componentManufacturer = 0x44656d6f; /*'Demo'*/
     desc.componentFlags = 0;

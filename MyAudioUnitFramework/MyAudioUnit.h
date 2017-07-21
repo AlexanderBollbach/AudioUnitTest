@@ -7,6 +7,8 @@
 //
 
 #import <AudioToolbox/AudioToolbox.h>
+#import <AudioUnit/AudioUnit.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface MyAudioUnit : AUAudioUnit
 
